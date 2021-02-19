@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">ToDo</string>
-    
+    <string name="fab_add_note">fab_add_note</string>
+    <string name="empty">Empty</string>
+    <string name="title">Title</string>
+    <string name="description">Enter description</string>
+    <string name="menu_title">Menu Title</string>
+    <string name="menu_sort_by_title">MenuSortByTitle</string>
+    <string name="menu_high_priority_tile">menu_high_priority_tile</string>
+    <string name="menu_low_priority_tile">menu_low_priority_tile</string>
+    <string name="menu_delete_all">menu_delete_all</string>
+    <string name="menu_add_title">menu_add_title</string>
+    <string name="menu_update_save_title">menu_update_title</string>
+    <string name="menu_update_delete_title">menu_update_delete_title</string>
+
     <string-array name="priorities">
         <item >High</item>
         <item >Medium</item>

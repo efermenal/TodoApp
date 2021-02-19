@@ -1,6 +1,8 @@
 package com.example.todo.ui.fragments.listnote
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,5 +18,13 @@ class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
         biding.fabAdNote.setOnClickListener {
             findNavController().navigate(R.id.action_listNoteFragment_to_addNoteFragment)
         }
+
+        setHasOptionsMenu(true)
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
 }
