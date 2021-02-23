@@ -10,10 +10,10 @@ import javax.inject.Inject
 
 class TodoApplication : Application(), HasAndroidInjector {
 
-    lateinit var daggerAppComponent: AppComponent
-
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    lateinit var daggerAppComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -25,6 +25,7 @@ class TodoApplication : Application(), HasAndroidInjector {
             .builder()
             .application(this)
             .build()
+        daggerAppComponent.inject(this)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {
