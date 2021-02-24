@@ -33,5 +33,8 @@
         <action
             android:id="@+id/action_updateNoteFragment_to_listNoteFragment"
             app:destination="@id/listNoteFragment" />
+        <argument
+            android:name="argNote"
+            app:argType="com.example.todo.models.Note" />
     </fragment>
 </navigation>

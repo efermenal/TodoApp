@@ -12,6 +12,10 @@
     <string name="menu_add_title">menu_add_title</string>
     <string name="menu_update_save_title">menu_update_title</string>
     <string name="menu_update_delete_title">menu_update_delete_title</string>
+    <string name="message_empty_fields">All fields are mandatory</string>
+    <string name="placeholder">placeholder</string>
+    <string name="note_saved">Note saved</string>
+    <string name="note_updated">Note was updated</string>
 
     <string-array name="priorities">
         <item >High</item>
