@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor (
         noteDao.deleteNote(note)
     }
 
-    fun deleteAllNote() = viewModelScope.launch(dispatcher.io() + NonCancellable) {
+    fun deleteAllNotes() = viewModelScope.launch(dispatcher.io() + NonCancellable) {
         noteDao.deleteAllNotes()
     }
 

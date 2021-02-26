@@ -1,8 +1,10 @@
 package com.example.todo.ui.fragments.listnote
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,6 +17,7 @@ import com.example.todo.models.Note
 import com.example.todo.models.Priority
 import com.example.todo.ui.fragments.MainViewModel
 import com.example.todo.ui.fragments.listnote.adapter.AdapterListNote
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -49,7 +52,6 @@ class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
     }
 
 
-
     private fun init() {
         adapterNotes = AdapterListNote()
         binding.rvNotes.apply {
@@ -62,6 +64,26 @@ class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_delete_all){
+            deleteAllNotes()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAllNotes() {
+        val builder = AlertDialog.Builder(requireContext()).apply {
+            setTitle(getString(R.string.title_delete_all_notes))
+            setMessage(getString(R.string.message_delete_all_notes))
+            setNegativeButton(getString(R.string.dialog_negative_button)){ _, _, ->}
+            setPositiveButton(getString(R.string.dialog_positive_button)){_,_ ->
+                viewModel.deleteAllNotes()
+                Snackbar.make(requireView(), getString(R.string.message_all_notes_deleted), Snackbar.LENGTH_SHORT).show()
+            }
+        }
+        builder.create().show()
     }
 
 }

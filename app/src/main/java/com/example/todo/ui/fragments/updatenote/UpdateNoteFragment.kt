@@ -1,5 +1,6 @@
 package com.example.todo.ui.fragments.updatenote
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -49,11 +50,13 @@ class UpdateNoteFragment : Fragment(R.layout.fragment_update_note) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_update_save){
-            updateNote()
+        when(item.itemId){
+            R.id.menu_update_save -> updateNote()
+            R.id.menu_update_delete -> deleteNote()
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     override fun onDestroyView() {
         _binding = null
@@ -79,12 +82,32 @@ class UpdateNoteFragment : Fragment(R.layout.fragment_update_note) {
         findNavController().navigate(R.id.action_updateNoteFragment_to_listNoteFragment)
     }
 
+    private fun deleteNote() {
+        val note = args.argNote
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.delete_note))
+            .setMessage(getString(R.string.message_delete_note, note.title))
+            .setNegativeButton(R.string.dialog_negative_button){_,_ ->}
+            .setPositiveButton(R.string.dialog_positive_button){_,_->
+                viewModel.deleteNote(note)
+                Snackbar.make(requireView(), getString(R.string.message_note_deleted), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.message_undo_note_deleted)) {
+                        viewModel.insertNote(note)
+                    }
+                    .show()
+                findNavController().navigate(R.id.action_updateNoteFragment_to_listNoteFragment)
+            }
+
+        builder.create().show()
+
+    }
+
     private fun getPriorityIndex(priority: Priority) : Int{
         return when(priority){
          Priority.HIGH -> 0
          Priority.MEDIUM -> 1
          Priority.LOW -> 2
-     }
+        }
     }
 
 

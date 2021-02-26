@@ -5,17 +5,26 @@
     <string name="title">Title</string>
     <string name="description">Enter description</string>
     <string name="menu_title">Menu Title</string>
-    <string name="menu_sort_by_title">MenuSortByTitle</string>
-    <string name="menu_high_priority_tile">menu_high_priority_tile</string>
-    <string name="menu_low_priority_tile">menu_low_priority_tile</string>
-    <string name="menu_delete_all">menu_delete_all</string>
-    <string name="menu_add_title">menu_add_title</string>
-    <string name="menu_update_save_title">menu_update_title</string>
-    <string name="menu_update_delete_title">menu_update_delete_title</string>
+    <string name="menu_sort_by_title">Order By</string>
+    <string name="menu_high_priority_tile">High Priority</string>
+    <string name="menu_low_priority_tile">Low Priority</string>
+    <string name="menu_delete_all">Delete All</string>
+    <string name="menu_add_title">Add Note</string>
+    <string name="menu_update_save_title">Update Note</string>
+    <string name="menu_update_delete_title">Delete Note</string>
     <string name="message_empty_fields">All fields are mandatory</string>
     <string name="placeholder">placeholder</string>
     <string name="note_saved">Note saved</string>
     <string name="note_updated">Note was updated</string>
+    <string name="message_delete_all_notes">All notes will be deleted. Are you sure?</string>
+    <string name="title_delete_all_notes">Delete All Notes</string>
+    <string name="dialog_negative_button">No</string>
+    <string name="dialog_positive_button">Yes</string>
+    <string name="message_all_notes_deleted">All notes were deleted</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="message_delete_note">Confirm delete \'%s\'?</string>
+    <string name="message_note_deleted">The note was deleted</string>
+    <string name="message_undo_note_deleted">Undo</string>
 
     <string-array name="priorities">
         <item >High</item>
