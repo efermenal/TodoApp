@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todo.R
 import com.example.todo.databinding.FragmentUpdateNoteBinding
+import com.example.todo.global.hideKeyboard
 import com.example.todo.models.Note
 import com.example.todo.models.Priority
 import com.example.todo.ui.fragments.MainViewModel
@@ -34,6 +35,7 @@ class UpdateNoteFragment : Fragment(R.layout.fragment_update_note) {
         setHasOptionsMenu(true)
         loadNote()
         binding.spPriorityUpdate.onItemSelectedListener =  CustomOnItemSelected(requireContext())
+        Timber.d("address $viewModel")
     }
 
     private fun loadNote() {
@@ -76,6 +78,9 @@ class UpdateNoteFragment : Fragment(R.layout.fragment_update_note) {
         viewModel.updateNote(
             Note(args.argNote.id, title = title, description= description, priority = Priority.valueOf(priorityText))
         )
+
+        binding.titleEtUpdate.hideKeyboard()
+        binding.descriptionEtUpdate.hideKeyboard()
 
         Snackbar.make(requireView(), getString(R.string.note_updated), Snackbar.LENGTH_SHORT).show()
 

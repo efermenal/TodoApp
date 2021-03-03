@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.databinding.FragmentListNoteBinding
 import com.example.todo.models.Note
@@ -24,13 +26,15 @@ import timber.log.Timber
 
 class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
 
+
     private var _binding : FragmentListNoteBinding? = null
     private val binding : FragmentListNoteBinding
         get() = _binding!!
-    
+
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var adapterNotes : AdapterListNote
-    
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +53,7 @@ class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
 
         } )
 
+        Timber.d("address $viewModel")
     }
 
 
@@ -59,6 +64,30 @@ class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
         }
+
+        val itemTouchCallback = object  : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val note  = adapterNotes.differ.currentList[viewHolder.adapterPosition]
+                viewModel.deleteNote(note)
+                Snackbar.make(requireView(), getString(R.string.message_note_deleted), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.message_undo_note_deleted)) {
+                            viewModel.insertNote(note)
+                        }
+                        .show()
+
+            }
+        }
+
+        ItemTouchHelper(itemTouchCallback)
+            .attachToRecyclerView(binding.rvNotes)
+
+
     }
 
 

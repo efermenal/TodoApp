@@ -21,5 +21,5 @@ class CustomOnItemSelected(private val context: Context) : AdapterView.OnItemSel
         }
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) { }
+    override fun onNothingSelected(p0: AdapterView<*>?) {/*No needed */ }
 }

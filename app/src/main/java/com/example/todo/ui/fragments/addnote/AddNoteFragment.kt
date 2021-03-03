@@ -11,11 +11,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todo.R
 import com.example.todo.databinding.FragmentAddNoteBinding
+import com.example.todo.global.hideKeyboard
 import com.example.todo.models.Note
 import com.example.todo.models.Priority
 import com.example.todo.ui.fragments.MainViewModel
 import com.example.todo.ui.fragments.common.CustomOnItemSelected
 import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 
 
 class AddNoteFragment() : Fragment(R.layout.fragment_add_note) {
@@ -30,6 +32,7 @@ class AddNoteFragment() : Fragment(R.layout.fragment_add_note) {
         _binding = FragmentAddNoteBinding.bind(view)
         setHasOptionsMenu(true)
         binding.spPriorityAdd.onItemSelectedListener = CustomOnItemSelected(requireContext())
+        Timber.d("address $viewModel")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -56,6 +59,11 @@ class AddNoteFragment() : Fragment(R.layout.fragment_add_note) {
                 description,
                 Priority.valueOf(priority.toUpperCase())
             ))
+
+            binding.titleEtAdd.hideKeyboard()
+            binding.descriptionEtAdd.hideKeyboard()
+
+
             Snackbar.make(this.requireView(), getString(R.string.note_saved), Snackbar.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addNoteFragment_to_listNoteFragment)
         }
