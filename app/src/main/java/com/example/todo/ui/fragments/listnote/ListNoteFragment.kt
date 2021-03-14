@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -24,7 +25,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
+class ListNoteFragment : Fragment(R.layout.fragment_list_note)
+                        ,SearchView.OnQueryTextListener
+{
 
 
     private var _binding : FragmentListNoteBinding? = null
@@ -86,18 +89,29 @@ class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
 
         ItemTouchHelper(itemTouchCallback)
             .attachToRecyclerView(binding.rvNotes)
-
-
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
+
+        val searchMenu = menu.findItem(R.id.menu_search)
+        val searchView = searchMenu.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_delete_all){
-            deleteAllNotes()
+        when (item.itemId) {
+            R.id.menu_delete_all -> {
+                deleteAllNotes()
+            }
+            R.id.menu_high_priority -> {
+                viewModel.sortNoteByNotePriority("H")
+            }
+            R.id.menu_low_priority -> {
+                viewModel.sortNoteByNotePriority("L")
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -113,6 +127,24 @@ class ListNoteFragment : Fragment(R.layout.fragment_list_note) {
             }
         }
         builder.create().show()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null){
+            searchNoteByTitle(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText != null){
+            searchNoteByTitle(newText)
+        }
+        return true
+    }
+
+    private fun searchNoteByTitle(query: String?) {
+        viewModel.searchNoteByTitle("%$query%")
     }
 
 }

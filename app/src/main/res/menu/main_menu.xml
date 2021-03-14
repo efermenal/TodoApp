@@ -14,7 +14,7 @@
         <item android:id="@+id/menu_sortBy" android:title="@string/menu_sort_by_title">
             <menu>
                 <item android:id="@+id/menu_high_priority" android:title="@string/menu_high_priority_tile" />
-                <item android:id="@+id/menu_lo_priority" android:title="@string/menu_low_priority_tile" />
+                <item android:id="@+id/menu_low_priority" android:title="@string/menu_low_priority_tile" />
             </menu>
         </item>
     </group>
